@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EEE Buddy — Home</title>
+<style>
+  body{
+    margin:0;font-family:'Segoe UI', Arial, sans-serif;
+    background:url('background.jpg') no-repeat center center/cover;
+    background-attachment:fixed;color:#fff;text-align:center;
+  }
+  body::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:-1;}
+
+  header{padding:32px 20px}
+  header h1{font-size:2.2rem;color:#00eaff;text-shadow:0 0 15px rgba(0,234,255,.7)}
+  .sub{opacity:.9}
+
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;max-width:900px;margin:30px auto;padding:0 16px;
+    opacity:0;transform:translateY(-10px);animation:fadeIn .8s ease forwards;
+  }
+  a.card{
+    display:block;text-decoration:none;color:#fff;
+    background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.25);border-radius:16px;
+    padding:28px;box-shadow:0 5px 22px rgba(0,0,0,.35);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  a.card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.5)}
+  .icon{font-size:2.6rem;margin-bottom:12px}
+  .primary{color:#00eaff}.accent{color:#ffd36b}
+  footer{margin:28px 0;opacity:.85}
+
+  @keyframes fadeIn{to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+  <header>
+    <h1>⚡ EEE Buddy</h1>
+    <div class="sub">Choose what you want to work on</div>
+  </header>
+
+  <div class="grid">
+    <a class="card" href="basic.html">
+      <div class="icon primary">🧮</div>
+      <h2>Basic Calculations</h2>
+      <p>Ohm’s Law, Transformer, 3-Phase Power, Battery Backup</p>
+    </a>
+
+    <a class="card" href="material.html">
+      <div class="icon accent">📦</div>
+      <h2>Material Buddy</h2>
+      <p>Estimate materials & cost (your new tool)</p>
+    </a>
+  </div>
+
+  <footer>© 2025 EEE Buddy — by Nandhu</footer>
+</body>
+</html>
