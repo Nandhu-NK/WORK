@@ -1,61 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EEE Buddy — Home</title>
-<style>
-  body{
-    margin:0;font-family:'Segoe UI', Arial, sans-serif;
-    background:url('background.jpg') no-repeat center center/cover;
-    background-attachment:fixed;color:#fff;text-align:center;
-  }
-  body::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:-1;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EEE Buddy — Home</title>
+  <style>
+    /* ---------- THEME VARIABLES ---------- */
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --card-bg: rgba(0,0,0,0.05);
+      --btn-bg: linear-gradient(90deg,#00eaff,#0077ff);
+    }
+    body.dark-mode {
+      --bg: #121212;
+      --text: #ffffff;
+      --card-bg: rgba(255,255,255,0.08);
+      --btn-bg: linear-gradient(90deg,#ffd36b,#ff9b4b);
+    }
 
-  header{padding:32px 20px}
-  header h1{font-size:2.2rem;color:#00eaff;text-shadow:0 0 15px rgba(0,234,255,.7)}
-  .sub{opacity:.9}
+    /* ---------- BASE STYLES ---------- */
+    body {
+      margin:0;
+      font-family:'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      text-align:center;
+      transition: background 0.3s, color 0.3s;
+    }
+    header {
+      padding:20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    header h1 {
+      font-size:1.5rem;
+      margin:0;
+    }
+    .toggle-btn {
+      cursor:pointer;
+      font-size:1.2rem;
+      border:none;
+      background:var(--btn-bg);
+      color:#fff;
+      padding:8px 14px;
+      border-radius:8px;
+      transition:background .3s;
+    }
 
-  .grid{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:20px;max-width:900px;margin:30px auto;padding:0 16px;
-    opacity:0;transform:translateY(-10px);animation:fadeIn .8s ease forwards;
-  }
-  a.card{
-    display:block;text-decoration:none;color:#fff;
-    background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
-    border:1px solid rgba(255,255,255,.25);border-radius:16px;
-    padding:28px;box-shadow:0 5px 22px rgba(0,0,0,.35);
-    transition:transform .25s ease, box-shadow .25s ease;
-  }
-  a.card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.5)}
-  .icon{font-size:2.6rem;margin-bottom:12px}
-  .primary{color:#00eaff}.accent{color:#ffd36b}
-  footer{margin:28px 0;opacity:.85}
-
-  @keyframes fadeIn{to{opacity:1;transform:translateY(0)}}
-</style>
+    /* ---------- MENU ---------- */
+    .menu {
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+      margin-top:50px;
+      align-items:center;
+    }
+    .menu a {
+      display:block;
+      padding:20px;
+      width:220px;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:700;
+      color:var(--text);
+      background:var(--card-bg);
+      box-shadow:0 4px 12px rgba(0,0,0,0.15);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .menu a:hover {
+      transform:scale(1.05);
+      box-shadow:0 6px 18px rgba(0,0,0,0.25);
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>⚡ EEE Buddy</h1>
-    <div class="sub">Choose what you want to work on</div>
+    <button class="toggle-btn" onclick="toggleTheme()">🌙 Dark</button>
   </header>
 
-  <div class="grid">
-    <a class="card" href="basic.html">
-      <div class="icon primary">🧮</div>
-      <h2>Basic Calculations</h2>
-      <p>Ohm’s Law, Transformer, 3-Phase Power, Battery Backup</p>
-    </a>
-
-    <a class="card" href="material.html">
-      <div class="icon accent">📦</div>
-      <h2>Material Buddy</h2>
-      <p>Estimate materials & cost (your new tool)</p>
-    </a>
+  <div class="menu">
+    <a href="basic.html">📐 Basic Calculations</a>
+    <a href="material.html">🏗️ Material Buddy</a>
   </div>
 
-  <footer>© 2025 EEE Buddy — by Nandhu</footer>
+  <script>
+    // Toggle dark/light mode
+    function toggleTheme(){
+      document.body.classList.toggle("dark-mode");
+      const btn=document.querySelector(".toggle-btn");
+      if(document.body.classList.contains("dark-mode")){
+        btn.textContent="☀️ Light";
+      } else {
+        btn.textContent="🌙 Dark";
+      }
+    }
+  </script>
 </body>
 </html>
