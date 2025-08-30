@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cable Sizing — EEE Buddy</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: url('background.jpg') no-repeat center center/cover;
+      background-attachment: fixed;
+      color: #fff;
+      text-align: center;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: -1;
+    }
+    header { padding: 20px }
+    header h1 {
+      font-size: 2rem;
+      color: #ffea00;
+      text-shadow: 0 0 15px rgba(255,234,0,.7);
+    }
+    .card {
+      background: rgba(255,255,255,.08);
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 450px;
+      margin: 20px auto;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,.4);
+      text-align: left;
+    }
+    label { display:block; margin-top:10px; font-weight:700 }
+    input {
+      width: 95%; padding:10px; margin-top:5px;
+      border-radius:8px; border:none;
+      background:rgba(255,255,255,.15); color:#fff; outline:none;
+    }
+    .controls { margin-top:15px; display:flex; gap:10px }
+    .calc-btn {
+      flex:1; padding:10px 15px; border:none; border-radius:8px;
+      font-weight:700; cursor:pointer;
+      background:linear-gradient(90deg,#ffd36b,#ff9b4b); color:#06121a;
+    }
+    .secondary {
+      background:linear-gradient(90deg,#00eaff,#0077ff); color:#001018;
+    }
+    .result {
+      margin-top:15px; padding:10px;
+      background:rgba(0,0,0,.3); border-radius:8px; text-align:center;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>🔌 Cable Sizing</h1>
+  <p>Estimate required cable size</p>
+</header>
+
+<div class="card">
+  <label>Load Current (A)</label><input id="c_I" type="number" placeholder="e.g., 20">
+  <label>Allowable Current Density (A/mm²)</label><input id="c_J" type="number" placeholder="e.g., 3">
+  <label>Length (m)</label><input id="c_L" type="number" placeholder="e.g., 20">
+  
+  <div class="controls">
+    <button class="calc-btn" onclick="calcCable()">Calculate</button>
+    <button class="calc-btn secondary" onclick="clearCable()">Clear</button>
+  </div>
+  <div id="cableRes" class="result"></div>
+</div>
+
+<script>
+function calcCable(){
+  const I=parseFloat(document.getElementById('c_I').value);
+  const J=parseFloat(document.getElementById('c_J').value);
+  const L=parseFloat(document.getElementById('c_L').value);
+  if(isNaN(I)||isNaN(J)||isNaN(L)){ alert("Enter all values"); return; }
+
+  const area=I/J; // mm² cross-sectional area
+  document.getElementById('cableRes').innerHTML =
+    `Required Area ≈ ${area.toFixed(2)} mm²<br>` +
+    `(Length considered = ${L} m)`;
+}
+function clearCable(){
+  ['c_I','c_J','c_L'].forEach(id=>document.getElementById(id).value="");
+  document.getElementById('cableRes').innerHTML="";
+}
+</script>
+</body>
+</html>
