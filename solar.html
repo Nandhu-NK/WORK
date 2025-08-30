@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar PV Estimator — EEE Buddy</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: url('background.jpg') no-repeat center center/cover;
+      background-attachment: fixed;
+      color: #fff;
+      text-align: center;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: -1;
+    }
+    header { padding: 20px }
+    header h1 {
+      font-size: 2rem;
+      color: #00ff99;
+      text-shadow: 0 0 15px rgba(0,255,153,.7);
+    }
+    .card {
+      background: rgba(255,255,255,.08);
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 450px;
+      margin: 20px auto;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,.4);
+      text-align: left;
+    }
+    label { display:block; margin-top:10px; font-weight:700 }
+    input {
+      width: 95%; padding:10px; margin-top:5px;
+      border-radius:8px; border:none;
+      background:rgba(255,255,255,.15); color:#fff; outline:none;
+    }
+    .controls { margin-top:15px; display:flex; gap:10px }
+    .calc-btn {
+      flex:1; padding:10px 15px; border:none; border-radius:8px;
+      font-weight:700; cursor:pointer;
+      background:linear-gradient(90deg,#00ff99,#009966); color:#001018;
+    }
+    .secondary {
+      background:linear-gradient(90deg,#00eaff,#0077ff); color:#001018;
+    }
+    .result {
+      margin-top:15px; padding:10px;
+      background:rgba(0,0,0,.3); border-radius:8px; text-align:center;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>☀️ Solar PV Estimator</h1>
+  <p>Calculate solar panel requirements</p>
+</header>
+
+<div class="card">
+  <label>Daily Load (Wh)</label><input id="loadWh" type="number" placeholder="e.g., 3000">
+  <label>Sun Hours (per day)</label><input id="sunHours" type="number" placeholder="e.g., 5">
+  <label>Panel Rating (W)</label><input id="panelW" type="number" placeholder="e.g., 330">
+  
+  <div class="controls">
+    <button class="calc-btn" onclick="calcSolar()">Calculate</button>
+    <button class="calc-btn secondary" onclick="clearSolar()">Clear</button>
+  </div>
+  <div id="solarRes" class="result"></div>
+</div>
+
+<script>
+function calcSolar(){
+  const load = parseFloat(document.getElementById('loadWh').value);
+  const sun = parseFloat(document.getElementById('sunHours').value);
+  const panel = parseFloat(document.getElementById('panelW').value);
+  if(isNaN(load)||isNaN(sun)||isNaN(panel)){ alert("Enter all values"); return; }
+
+  const totalWp = load / sun; // total Wp needed
+  const panels = Math.ceil(totalWp / panel);
+
+  document.getElementById('solarRes').innerHTML =
+    `Total Capacity Needed = ${totalWp.toFixed(2)} Wp<br>` +
+    `Number of Panels (≈${panel}W) = ${panels}`;
+}
+function clearSolar(){
+  ['loadWh','sunHours','panelW'].forEach(id=>document.getElementById(id).value="");
+  document.getElementById('solarRes').innerHTML="";
+}
+</script>
+</body>
+</html>
